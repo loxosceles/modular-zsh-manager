@@ -1,0 +1,4 @@
+*.zwc
+zsh/plugins-data/*
+!zsh/plugins-data/.keep
+.vscode/

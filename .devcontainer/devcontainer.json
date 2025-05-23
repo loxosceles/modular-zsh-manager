@@ -1,0 +1,44 @@
+{
+    "name": "Generic Ubuntu Development Container",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "args": {
+            "SOURCE_DIR": "/workspace/zsh",
+            "TARGET_DIR": "/home/vscode/.config/zsh"
+        }
+    },
+    "containerEnv": {
+        "SSH_CONTEXT": "personal",
+        "ZSH_PROFILE": "devcontainer"
+    },
+    "mounts": [
+        {
+            "type": "bind",
+            "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.ssh/contexts/${localEnv:SSH_CONTEXT}",
+            "target": "/home/vscode/.ssh/contexts/${localEnv:SSH_CONTEXT:-personal}"
+        }
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.profiles.linux": {
+                    "zsh": {
+                        "path": "/usr/bin/zsh"
+                    }
+                }
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/larsnieuwenhuizen/features/neovim:0": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "installOhMyZsh": false
+        }
+    },
+    "postCreateCommand": "sudo mkdir -p ~/.ssh && sudo cp ~/.ssh/contexts/${SSH_CONTEXT}/config ~/.ssh/config && sudo chown -R ${USER}:${USER} ~/.ssh",
+    "remoteUser": "vscode"
+}
