@@ -1,7 +1,12 @@
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
+WORKDIR /home/vscode
+
 # Install rsync for sync script
 RUN apt-get update && apt-get install -y rsync && rm -rf /var/lib/apt/lists/*
+
+COPY .devcontainer/post-create.sh /usr/src/
+RUN chmod +x /usr/src/post-create.sh
 
 # Copy everything from project root's zsh folder
 COPY zsh /workspace/zsh

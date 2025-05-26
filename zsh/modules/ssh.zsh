@@ -1,5 +1,6 @@
 # Skip SSH context manager in containers unless explicitly enabled
 if [[ -f /.dockerenv ]] && [[ -z "$ENABLE_SSH_CONTEXT" ]]; then
+    echo "SSH context manager is disabled in container environments."
     return 0
 fi
 

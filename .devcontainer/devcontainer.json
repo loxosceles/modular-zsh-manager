@@ -16,7 +16,7 @@
         {
             "type": "bind",
             "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.ssh/contexts/${localEnv:SSH_CONTEXT}",
-            "target": "/home/vscode/.ssh/contexts/${localEnv:SSH_CONTEXT:-personal}"
+            "target": "/home/vscode/.ssh/contexts/${localEnv:SSH_CONTEXT}"
         }
     ],
     "customizations": {
@@ -39,6 +39,6 @@
             "installOhMyZsh": false
         }
     },
-    "postCreateCommand": "sudo mkdir -p ~/.ssh && sudo cp ~/.ssh/contexts/${SSH_CONTEXT}/config ~/.ssh/config && sudo chown -R ${USER}:${USER} ~/.ssh",
+    "postCreateCommand": "/bin/sh /usr/src/post-create.sh",
     "remoteUser": "vscode"
 }
